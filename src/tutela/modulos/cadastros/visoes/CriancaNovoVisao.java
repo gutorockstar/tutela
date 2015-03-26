@@ -4,19 +4,19 @@
  */
 package tutela.modulos.cadastros.visoes;
 
-import java.awt.Color;
 import javax.swing.ImageIcon;
+import tutela.modulos.cadastros.controladores.CriancaControlador;
 
 /**
  *
  * @author augusto
  */
-public class CriancaNovo extends javax.swing.JDialog {
+public class CriancaNovoVisao extends javax.swing.JDialog {
 
     /**
      * Creates new form CriancaNovo
      */
-    public CriancaNovo(java.awt.Frame parent, boolean modal) {
+    public CriancaNovoVisao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -25,8 +25,8 @@ public class CriancaNovo extends javax.swing.JDialog {
         possuiNecessidadeNao.setEnabled(false);
         necessidadeEspecial.setEnabled(false);
         
-        botaoSalvar.setIcon(new ImageIcon(CriancaNovo.this.getClass().getResource("/tutela/publico/imagens/salvar.png")));
-        botaoCancelar.setIcon(new ImageIcon(CriancaNovo.this.getClass().getResource("/tutela/publico/imagens/cancelar.png")));
+        botaoSalvar.setIcon(new ImageIcon(CriancaNovoVisao.this.getClass().getResource("/tutela/publico/imagens/salvar.png")));
+        botaoCancelar.setIcon(new ImageIcon(CriancaNovoVisao.this.getClass().getResource("/tutela/publico/imagens/cancelar.png")));
     }
 
     /**
@@ -644,7 +644,11 @@ public class CriancaNovo extends javax.swing.JDialog {
     }//GEN-LAST:event_possuiNecessidadeSimActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        CriancaControlador controlador = new CriancaControlador();
         
+        if ( controlador.salvarAcao(this) ) {
+            // Confirmação que salvou
+        }
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void possuiNecessidadeNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_possuiNecessidadeNaoActionPerformed
@@ -691,20 +695,20 @@ public class CriancaNovo extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CriancaNovo dialog = new CriancaNovo(new javax.swing.JFrame(), true);
+                CriancaNovoVisao dialog = new CriancaNovoVisao(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

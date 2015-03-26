@@ -201,7 +201,7 @@ public class CriancaVisao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botaoBuscarActionPerformed
 
     private void botaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoActionPerformed
-        CriancaNovo novo = new CriancaNovo(Frame, true);
+        CriancaNovoVisao novo = new CriancaNovoVisao(Frame, true);
         novo.setLocationRelativeTo(null);  // centraliza a tela
         novo.setVisible(true);
     }//GEN-LAST:event_botaoNovoActionPerformed

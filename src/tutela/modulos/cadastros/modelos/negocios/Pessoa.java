@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tutela.modulos.cadastros.modelos;
+package tutela.modulos.cadastros.modelos.negocios;
 
 /**
  *
@@ -10,6 +10,10 @@ package tutela.modulos.cadastros.modelos;
  */
 public class Pessoa 
 {
+    public static final char sexoM = 'M';
+    public static final char sexoF = 'F';
+    
+    private int idPessoa;
     private String nome;
     private String estadoCivil;
     private String dataNascimento;
@@ -19,7 +23,7 @@ public class Pessoa
     private String cidade;
     private String bairro;
     private String rua;
-    private int numero;
+    private String numero;
     private String complemento;
     private String rg;
     private String cpf;
@@ -27,6 +31,14 @@ public class Pessoa
     private String telefoneCelular;
     private String email;
 
+    public int getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(int idPessoa) {
+        this.idPessoa = idPessoa;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -99,11 +111,11 @@ public class Pessoa
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

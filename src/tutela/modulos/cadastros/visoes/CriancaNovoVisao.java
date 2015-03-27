@@ -5,7 +5,10 @@
 package tutela.modulos.cadastros.visoes;
 
 import javax.swing.ImageIcon;
-import tutela.modulos.cadastros.controladores.CriancaControlador;
+import javax.swing.JOptionPane;
+import tutela.modulos.cadastros.modelos.daos.CriancaDao;
+import tutela.modulos.cadastros.modelos.negocios.Crianca;
+import tutela.modulos.cadastros.modelos.negocios.Pessoa;
 
 /**
  *
@@ -132,7 +135,7 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel2.setText("Estado civil:");
 
-        estadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Selecione--", "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)" }));
+        estadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)" }));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("Data de nascimento:");
@@ -157,7 +160,7 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel4.setText("Sexo:");
 
-        origemEtnica.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Selecione--", "Branco", "Pardo", "Negro", "Indígena" }));
+        origemEtnica.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Branco", "Pardo", "Negro", "Indígena" }));
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel5.setText("Origem étnica:");
@@ -193,14 +196,14 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel7))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(origemEtnica, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,6 +228,7 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,12 +257,11 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel7)
-                        .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jLabel7))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(necessidadeEspecial)
-                        .addContainerGap())))
+                        .addComponent(necessidadeEspecial, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(java.awt.SystemColor.controlLtHighlight);
@@ -320,9 +323,9 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Dados pessoais", jPanel1);
@@ -344,7 +347,7 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel12.setText("Cidade:");
 
-        estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Selecione--", "RS - Rio Grande do Sul" }));
+        estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "RS - Rio Grande do Sul" }));
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel13.setText("Bairro:");
@@ -367,33 +370,31 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(rua, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(estado, 0, 491, Short.MAX_VALUE)
+                    .addComponent(cidade, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                    .addComponent(bairro, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(rua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numero))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bairro, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(estado, 0, 491, Short.MAX_VALUE)
-                            .addComponent(cidade, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(complemento))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,14 +419,14 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -503,7 +504,7 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -579,7 +580,7 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -644,10 +645,36 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
     }//GEN-LAST:event_possuiNecessidadeSimActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        CriancaControlador controlador = new CriancaControlador();
+        Crianca crianca = new Crianca();
+        crianca.setNome(nome.getText());
+        crianca.setEstadoCivil(estadoCivil.getSelectedItem().toString());
+        crianca.setDataNascimento(dataNascimento.getText());
+        crianca.setSexo((sexoM.isSelected()) ? Pessoa.sexoM : Pessoa.sexoF);
+        crianca.setOrigemEtnica(origemEtnica.getSelectedItem().toString());
+        crianca.setEstado(estado.getSelectedItem().toString());
+        crianca.setCidade(cidade.getText());
+        crianca.setBairro(bairro.getText());
+        crianca.setRua(rua.getText());
+        crianca.setNumero(numero.getText());
+        crianca.setComplemento(complemento.getText());
+        crianca.setRg(rg.getText());
+        crianca.setCpf(cpf.getText());
+        crianca.setTelefoneResidencial(telefoneResidencial.getText());
+        crianca.setTelefoneCelular(telefoneCelular.getText());
+        crianca.setEmail(email.getText());
+        crianca.setPossuiNecessidadeEspecial((possuiNecessidadeSim.isSelected()) ? true : false);
+        crianca.setNecessidadeEspecial(necessidadeEspecial.getText());
+        crianca.setNomeMae(nomeMae.getText());
+        crianca.setNomePai(nomePai.getText());
+        crianca.setOutroResponsavel(nomeResponsavel.getText());
+        crianca.setCertidaoNascimento(certidaoNascimento.getText());
         
-        if ( controlador.salvarAcao(this) ) {
-            // Confirmação que salvou
+        CriancaDao criancaDao = new CriancaDao();
+        
+        if ( criancaDao.salvar(crianca) ) 
+        {
+            JOptionPane.showMessageDialog(null, "Registro efetuado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.resetaCampos();
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
@@ -677,6 +704,36 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
     private void bairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bairroActionPerformed
+
+    private void resetaCampos() {
+        nome.setText(null);
+        estadoCivil.setSelectedItem(jLabel1);
+        
+        nome.getText();
+        /**
+        crianca.setEstadoCivil(estadoCivil.getSelectedItem().toString());
+        crianca.setDataNascimento(dataNascimento.getText());
+        crianca.setSexo((sexoM.isSelected()) ? Pessoa.sexoM : Pessoa.sexoF);
+        crianca.setOrigemEtnica(origemEtnica.getSelectedItem().toString());
+        crianca.setEstado(estado.getSelectedItem().toString());
+        crianca.setCidade(cidade.getText());
+        crianca.setBairro(bairro.getText());
+        crianca.setRua(rua.getText());
+        crianca.setNumero(numero.getText());
+        crianca.setComplemento(complemento.getText());
+        crianca.setRg(rg.getText());
+        crianca.setCpf(cpf.getText());
+        crianca.setTelefoneResidencial(telefoneResidencial.getText());
+        crianca.setTelefoneCelular(telefoneCelular.getText());
+        crianca.setEmail(email.getText());
+        crianca.setPossuiNecessidadeEspecial((possuiNecessidadeSim.isSelected()) ? true : false);
+        crianca.setNecessidadeEspecial(necessidadeEspecial.getText());
+        crianca.setNomeMae(nomeMae.getText());
+        crianca.setNomePai(nomePai.getText());
+        crianca.setOutroResponsavel(nomeResponsavel.getText());
+        crianca.setCertidaoNascimento(certidaoNascimento.getText()
+        */
+    }
 
     /**
      * @param args the command line arguments

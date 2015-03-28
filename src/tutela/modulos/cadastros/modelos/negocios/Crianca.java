@@ -77,6 +77,13 @@ public class Crianca extends Pessoa
         this.certidaoNascimento = certidaoNascimento;
     }
     
+    /**
+     * Verifica se os dados obrigatórios para um
+     * registro de criança, foram corretamente
+     * preenchidos.
+     * 
+     * @return boolean
+     */
     public boolean validaDadosObrigatorios() 
     {
         boolean camposValidos = true;

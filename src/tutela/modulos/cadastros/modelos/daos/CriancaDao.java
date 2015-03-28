@@ -104,7 +104,8 @@ public class CriancaDao extends ConexaoBD
         
         try
         {
-            String where = "";
+            // REMOVER O PARÂMETRO DE FILTRO, IREI LISTAR SEMPRE TODOS OS REGISTROS, E FAZER A BUSCA DIRETAMENTE NA JTABLE.
+            
             String sql = "SELECT idPessoa," +
                                 "nome," +
                                 "estadoCivil," +
@@ -129,11 +130,6 @@ public class CriancaDao extends ConexaoBD
                                 "outroResponsavel," +
                                 "certidaoNascimento" +
                            "FROM crianca ";
-            
-            if ( filtro.length() > 0 )
-            {
-                
-            }
         }
         catch (Exception e)
         {

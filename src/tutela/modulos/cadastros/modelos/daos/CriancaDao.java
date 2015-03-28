@@ -19,58 +19,64 @@ public class CriancaDao extends ConexaoBD
     {
         try 
         {
-            Statement st = super.getConnection().createStatement();
-            
-            String sql = "INSERT INTO crianca" +
-                                     "(nome," +
-                                      "estadoCivil," +
-                                      "dataNascimento," +
-                                      "sexo," +
-                                      "origemEtnica," +
-                                      "estado," +
-                                      "cidade," +
-                                      "bairro," +
-                                      "rua," +
-                                      "numero," +
-                                      "complemento," +
-                                      "rg," +
-                                      "cpf," +
-                                      "telefoneResidencial," +
-                                      "telefoneCelular," +
-                                      "email," +
-                                      "possuiNecessidadeEspecial," +
-                                      "necessidadeEspecial," +
-                                      "nomeMae," +
-                                      "nomePai," +
-                                      "outroResponsavel," +
-                                      "certidaoNascimento)" +
-                              "VALUES ('" + crianca.getNome() + "'," +
-                                      "'" + crianca.getEstadoCivil() + "'," +
-                                      "'" + crianca.getDataNascimento() + "'," +
-                                      "'" + crianca.getSexo() + "'," +
-                                      "'" + crianca.getOrigemEtnica() + "'," +
-                                      "'" + crianca.getEstado() + "'," +
-                                      "'" + crianca.getCidade() + "'," +
-                                      "'" + crianca.getBairro() + "'," +
-                                      "'" + crianca.getRua() + "'," +
-                                      "'" + crianca.getNumero() + "'," +
-                                      "'" + crianca.getComplemento() + "'," +
-                                      "'" + crianca.getRg() + "'," +
-                                      "'" + crianca.getCpf() + "'," +
-                                      "'" + crianca.getTelefoneResidencial() + "'," +
-                                      "'" + crianca.getTelefoneCelular() + "'," +
-                                      "'" + crianca.getEmail() + "'," +
-                                      "'" + crianca.isPossuiNecessidadeEspecial() + "'," +
-                                      "'" + crianca.getNecessidadeEspecial() + "'," +
-                                      "'" + crianca.getNomeMae() + "'," +
-                                      "'" + crianca.getNomePai() + "'," +
-                                      "'" + crianca.getOutroResponsavel() + "'," +
-                                      "'" + crianca.getCertidaoNascimento() + "')";
-            
-            
-            int resultado = st.executeUpdate(sql);
+            if ( crianca.validaDadosObrigatorios() )
+            {
+                Statement st = super.getConnection().createStatement();
 
-            return true;
+                String sql = "INSERT INTO crianca" +
+                                         "(nome," +
+                                          "estadoCivil," +
+                                          "dataNascimento," +
+                                          "sexo," +
+                                          "origemEtnica," +
+                                          "estado," +
+                                          "cidade," +
+                                          "bairro," +
+                                          "rua," +
+                                          "numero," +
+                                          "complemento," +
+                                          "rg," +
+                                          "cpf," +
+                                          "telefoneResidencial," +
+                                          "telefoneCelular," +
+                                          "email," +
+                                          "possuiNecessidadeEspecial," +
+                                          "necessidadeEspecial," +
+                                          "nomeMae," +
+                                          "nomePai," +
+                                          "outroResponsavel," +
+                                          "certidaoNascimento)" +
+                                  "VALUES ('" + crianca.getNome() + "'," +
+                                          "'" + crianca.getEstadoCivil() + "'," +
+                                          "'" + crianca.getDataNascimento() + "'," +
+                                          "'" + crianca.getSexo() + "'," +
+                                          "'" + crianca.getOrigemEtnica() + "'," +
+                                          "'" + crianca.getEstado() + "'," +
+                                          "'" + crianca.getCidade() + "'," +
+                                          "'" + crianca.getBairro() + "'," +
+                                          "'" + crianca.getRua() + "'," +
+                                          "'" + crianca.getNumero() + "'," +
+                                          "'" + crianca.getComplemento() + "'," +
+                                          "'" + crianca.getRg() + "'," +
+                                          "'" + crianca.getCpf() + "'," +
+                                          "'" + crianca.getTelefoneResidencial() + "'," +
+                                          "'" + crianca.getTelefoneCelular() + "'," +
+                                          "'" + crianca.getEmail() + "'," +
+                                          "'" + crianca.isPossuiNecessidadeEspecial() + "'," +
+                                          "'" + crianca.getNecessidadeEspecial() + "'," +
+                                          "'" + crianca.getNomeMae() + "'," +
+                                          "'" + crianca.getNomePai() + "'," +
+                                          "'" + crianca.getOutroResponsavel() + "'," +
+                                          "'" + crianca.getCertidaoNascimento() + "')";
+
+
+                int resultado = st.executeUpdate(sql);
+                return true;
+            }
+            else
+            {
+                throw new Exception("Preencha corretamente os campos obrigatórios!");
+            }
         } 
         catch (Exception e) 
         {

@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS pessoa (
     bairro VARCHAR(45) NOT NULL,
     rua VARCHAR(45) NOT NULL,
     numero INT NOT NULL,
-    complemento VARCHAR(45) NOT NULL,
-    rg VARCHAR(45) NOT NULL,
-    cpf VARCHAR(14) NOT NULL,
-    telefoneResidencial VARCHAR(45) NOT NULL,
+    complemento VARCHAR(45),
+    rg VARCHAR(45),
+    cpf VARCHAR(14),
+    telefoneResidencial VARCHAR(45),
     telefoneCelular VARCHAR(45) NOT NULL,
-    email VARCHAR(45) NOT NULL
+    email VARCHAR(45)
 );
 
 CREATE INDEX IF NOT EXISTS idx_pessoa_idPessoa ON pessoa(idPessoa);
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS crianca (
     nomeMae VARCHAR(45),
     nomePai VARCHAR(45),
     outroResponsavel VARCHAR(45),
-    certidaoNascimento VARCHAR(45)
+    certidaoNascimento VARCHAR(45) NOT NULL
 ) INHERITS(pessoa);
 
 ALTER TABLE crianca ADD CONSTRAINT crt_crianca_idPessoa PRIMARY KEY (idPessoa);

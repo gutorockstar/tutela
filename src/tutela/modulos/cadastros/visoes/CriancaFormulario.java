@@ -16,20 +16,32 @@ import tutela.modulos.cadastros.modelos.negocios.Pessoa;
  */
 public class CriancaFormulario extends javax.swing.JDialog {
 
+    public static CriancaBusca criancaBusca;
+    
     /**
      * Creates new form CriancaNovo
      */
-    public CriancaFormulario(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public CriancaFormulario(CriancaBusca parent, boolean modal) {
+        criancaBusca = parent;
+        this.setModal(modal);
+        
         initComponents();
         
         sexoM.setEnabled(false);
-        
         possuiNecessidadeNao.setEnabled(false);
         necessidadeEspecial.setEditable(false);
-        
         botaoSalvar.setIcon(new ImageIcon(CriancaFormulario.this.getClass().getResource("/tutela/publico/imagens/salvar.png")));
         botaoCancelar.setIcon(new ImageIcon(CriancaFormulario.this.getClass().getResource("/tutela/publico/imagens/cancelar.png")));
+    }
+    
+    /**
+     * Popula os campos do formuário com os dados
+     * da criança selecionada.
+     */
+    public void populaForumlario(Crianca crianca)
+    {
+        nome.setText(crianca.getNome());
+        //Continuar
     }
 
     /**
@@ -673,6 +685,11 @@ public class CriancaFormulario extends javax.swing.JDialog {
         botaoCancelar.setFocusable(false);
         botaoCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(botaoCancelar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -735,7 +752,8 @@ public class CriancaFormulario extends javax.swing.JDialog {
         if ( crianca.validaDadosObrigatorios() && criancaDao.salvar(crianca) ) 
         {
             JOptionPane.showMessageDialog(null, "Registro efetuado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            this.resetaCampos();
+            criancaBusca.atualizarTabela(criancaDao.codigoInserido);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
@@ -767,35 +785,9 @@ public class CriancaFormulario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_bairroActionPerformed
 
-    private void resetaCampos() {
-        nome.setText(null);
-        estadoCivil.setSelectedItem(jLabel1);
-        
-        nome.getText();
-        /**
-        crianca.setEstadoCivil(estadoCivil.getSelectedItem().toString());
-        crianca.setDataNascimento(dataNascimento.getText());
-        crianca.setSexo((sexoM.isSelected()) ? Pessoa.sexoM : Pessoa.sexoF);
-        crianca.setOrigemEtnica(origemEtnica.getSelectedItem().toString());
-        crianca.setEstado(estado.getSelectedItem().toString());
-        crianca.setCidade(cidade.getText());
-        crianca.setBairro(bairro.getText());
-        crianca.setRua(rua.getText());
-        crianca.setNumero(numero.getText());
-        crianca.setComplemento(complemento.getText());
-        crianca.setRg(rg.getText());
-        crianca.setCpf(cpf.getText());
-        crianca.setTelefoneResidencial(telefoneResidencial.getText());
-        crianca.setTelefoneCelular(telefoneCelular.getText());
-        crianca.setEmail(email.getText());
-        crianca.setPossuiNecessidadeEspecial((possuiNecessidadeSim.isSelected()) ? true : false);
-        crianca.setNecessidadeEspecial(necessidadeEspecial.getText());
-        crianca.setNomeMae(nomeMae.getText());
-        crianca.setNomePai(nomePai.getText());
-        crianca.setOutroResponsavel(nomeResponsavel.getText());
-        crianca.setCertidaoNascimento(certidaoNascimento.getText()
-        */
-    }
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -827,7 +819,7 @@ public class CriancaFormulario extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CriancaFormulario dialog = new CriancaFormulario(new javax.swing.JFrame(), true);
+                CriancaFormulario dialog = new CriancaFormulario(criancaBusca, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -19,6 +19,8 @@ import tutela.modulos.cadastros.modelos.negocios.Crianca;
  */
 public class CriancaDAO extends ConexaoBD
 {    
+    public int codigoInserido;
+    
     /**
      * Registra uma nova criança na base de dados.
      * 
@@ -73,10 +75,16 @@ public class CriancaDAO extends ConexaoBD
                                       "'" + crianca.getNomeMae() + "'," +
                                       "'" + crianca.getNomePai() + "'," +
                                       "'" + crianca.getOutroResponsavel() + "'," +
-                                      "'" + crianca.getCertidaoNascimento() + "')";
+                                      "'" + crianca.getCertidaoNascimento() + "') " +
+                           "RETURNING idPessoa";
 
             Statement st = super.getConnection().createStatement();
-            st.executeUpdate(sql);
+            ResultSet resultSet;
+            
+            resultSet = st.executeQuery(sql);
+            resultSet.next();
+            
+            codigoInserido = resultSet.getInt(1);
 
             return true;
         } 
@@ -94,7 +102,7 @@ public class CriancaDAO extends ConexaoBD
      * @param filtro
      * @return ResultSet
      */
-    public ResultSet listar()
+    public ResultSet listar(int idPessoa)
     {        
         try
         {
@@ -104,8 +112,13 @@ public class CriancaDAO extends ConexaoBD
                                 "TO_CHAR(dataNascimento, 'dd/mm/yyyy') AS dataNascimento," +
                                 "(CASE sexo WHEN 'M' THEN 'Masculino' ELSE 'Feminino' END) AS sexo," +
                                 "origemEtnica," +
-                                "estado," +
                                 "cidade," +
+                                "telefoneCelular," +
+                                "(CASE possuiNecessidadeEspecial WHEN TRUE THEN 'Sim' ELSE 'Não' END) AS possuiNecessidadeEspecial," +
+                                "nomeMae," +
+                                "nomePai," +
+                                "outroResponsavel," +
+                                "estado," +
                                 "bairro," +
                                 "rua," +
                                 "numero," +
@@ -113,15 +126,12 @@ public class CriancaDAO extends ConexaoBD
                                 "rg," +
                                 "cpf," +
                                 "telefoneResidencial," +
-                                "telefoneCelular," +
                                 "email," +
-                                "(CASE possuiNecessidadeEspecial WHEN TRUE THEN 'Sim' ELSE 'Não' END) AS possuiNecessidadeEspecial," +
                                 "necessidadeEspecial," +
-                                "nomeMae," +
-                                "nomePai," +
-                                "outroResponsavel," +
                                 "certidaoNascimento " +
-                           "FROM crianca";
+                           "FROM crianca " +
+                          "WHERE (CASE " + idPessoa + "WHEN 0 THEN TRUE ELSE (idPessoa = " + idPessoa + ") END) " +
+                       "ORDER BY nome";
             
             Statement st = super.getConnection().createStatement();
             ResultSet resultSet = st.executeQuery(sql);
@@ -152,9 +162,8 @@ public class CriancaDAO extends ConexaoBD
      * @param idCrianca
      * @return boolean
      */
-    public boolean excluir(int idCrianca)
+    public boolean excluir(int idPessoa)
     {
         return false;   
-    }
-    
+    }    
 }

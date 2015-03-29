@@ -10,14 +10,14 @@ package tutela.modulos.cadastros.modelos.negocios;
  */
 public class Pessoa 
 {
-    public static final char sexoM = 'M';
-    public static final char sexoF = 'F';
+    public static final String sexoM = "M";
+    public static final String sexoF = "F";
     
     private int idPessoa;
     private String nome;
     private String estadoCivil;
     private String dataNascimento;
-    private char sexo;
+    private String sexo;
     private String origemEtnica;
     private String estado;
     private String cidade;
@@ -71,12 +71,12 @@ public class Pessoa
         this.dataNascimento = dataNascimento;
     }
 
-    public char getSexo() 
+    public String getSexo() 
     {
         return sexo;
     }
 
-    public void setSexo(char sexo) 
+    public void setSexo(String sexo) 
     {
         this.sexo = sexo;
     }

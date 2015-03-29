@@ -5,9 +5,11 @@
 package tutela.modulos.cadastros.visoes;
 
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import tutela.modulos.cadastros.modelos.daos.CriancaDAO;
 import tutela.modulos.cadastros.modelos.negocios.Crianca;
 
@@ -16,30 +18,62 @@ import tutela.modulos.cadastros.modelos.negocios.Crianca;
  * @author augusto
  */
 public class CriancaBusca extends javax.swing.JInternalFrame {
-    private Frame Frame;
-
+    
+    public static CriancaFormulario criancaFormulario;
+    
     /**
      * Creates new form CriancaVisao
      */
     public CriancaBusca() {
+        super();
         initComponents();
         
         botaoNovo.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/novo.png")));
         botaoEditar.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/editar.png")));
-        botaoEditar.setEnabled(false);
         botaoExcluir.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/excluir.png")));
-        botaoExcluir.setEnabled(false);
         botaoBuscar.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/buscar.png")));
+        botaoAtualizar.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/atualizar.png")));
+        
+        this.desabilitaAcoesDeEdicaoEExclusao();
     
         tabelaCrianca.setRowHeight(20);
         tabelaCrianca.setPreferredSize(new Dimension(10000, 500));
         
-        Crianca crianca = new Crianca();
-        CriancaDAO criancaDao = new CriancaDAO();
-        ResultSet resultSet;
+        // Evento ao selecionar um item da tabela.
+        tabelaCrianca.getSelectionModel().addListSelectionListener(new ListSelectionListener() {  
+            @Override  
+            public void valueChanged(ListSelectionEvent evt) {  
+               if (evt.getValueIsAdjusting())  
+               {
+                   return;  
+               }
+               
+               int selected = tabelaCrianca.getSelectedRow();
+               
+               if ( selected != -1 )
+               {
+                    abilitaAcoesDeEdicaoEExclusao();
+               }
+               else
+               {
+                   desabilitaAcoesDeEdicaoEExclusao();
+               }
+            }  
+         });
         
-        resultSet = criancaDao.listar();
-        crianca.populaRegistrosNaTabela(tabelaCrianca, resultSet);
+        this.atualizarTabela(0);
+    }
+    
+    private void abilitaAcoesDeEdicaoEExclusao()
+    {
+        botaoEditar.setEnabled(true);
+        botaoExcluir.setEnabled(true);
+    }
+    
+    private void desabilitaAcoesDeEdicaoEExclusao()
+    {
+        botaoEditar.setEnabled(false);
+        botaoExcluir.setEnabled(false);
     }
 
     /**
@@ -57,6 +91,7 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         botaoNovo = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
         painelConteudo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCrianca = new javax.swing.JTable();
@@ -88,6 +123,11 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         botaoEditar.setFocusable(false);
         botaoEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(botaoEditar);
 
         botaoExcluir.setText("   Excluir  ");
@@ -95,6 +135,17 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         botaoExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(botaoExcluir);
+
+        botaoAtualizar.setText(" Atualizar ");
+        botaoAtualizar.setFocusable(false);
+        botaoAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoAtualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(botaoAtualizar);
 
         painelConteudo.setBackground(java.awt.SystemColor.controlLtHighlight);
         painelConteudo.setBorder(null);
@@ -105,19 +156,27 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Estado civil", "Origem étnica", "Data de nascimento", "Sexo", "Cidade", "Telefone", "Possui necessidade especial", "Nome mae", "Nome pai", "Outro responsável"
+                "Código", "Nome", "Estado civil", "Data de nascimento", "Sexo", "Origem étnica", "Cidade", "Telefone celular", "Possui necessidade especial", "Nome da mãe", "Nome do pai", "Outro responsável"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tabelaCrianca);
-        tabelaCrianca.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabelaCrianca.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tabelaCrianca.getColumnModel().getColumn(1).setPreferredWidth(200);
 
         botaoBuscar.setText("Procurar");
 
@@ -189,12 +248,43 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoActionPerformed
-        CriancaFormulario novo = new CriancaFormulario(Frame, true);
-        novo.setLocationRelativeTo(null);  // centraliza a tela
-        novo.setVisible(true);
+        criancaFormulario = new CriancaFormulario(this, true);
+        criancaFormulario.setLocationRelativeTo(null);  // centraliza a tela
+        criancaFormulario.setVisible(true);
     }//GEN-LAST:event_botaoNovoActionPerformed
 
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+	this.atualizarTabela(0);
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
+
+    private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
+        int selected = tabelaCrianca.getSelectedRow();
+        
+        if ( selected != -1 )
+        {
+            Crianca crianca = new Crianca(selected);
+            
+            criancaFormulario = new CriancaFormulario(this, true);
+            criancaFormulario.populaForumlario(crianca);
+            criancaFormulario.setLocationRelativeTo(null);
+            criancaFormulario.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Selecione um registro!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoEditarActionPerformed
+
+    public final void atualizarTabela(int codigoRegistroASelecionar) {
+	Crianca crianca = new Crianca();
+        CriancaDAO criancaDao = new CriancaDAO();
+        ResultSet resultSet;
+        resultSet = criancaDao.listar(0);
+        crianca.populaRegistrosNaTabela(tabelaCrianca, resultSet, codigoRegistroASelecionar);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoBuscar;
     private javax.swing.JButton botaoEditar;
     private javax.swing.JButton botaoExcluir;

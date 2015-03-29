@@ -6,7 +6,7 @@ package tutela.modulos.cadastros.visoes;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import tutela.modulos.cadastros.modelos.daos.CriancaDao;
+import tutela.modulos.cadastros.modelos.daos.CriancaDAO;
 import tutela.modulos.cadastros.modelos.negocios.Crianca;
 import tutela.modulos.cadastros.modelos.negocios.Pessoa;
 
@@ -14,12 +14,12 @@ import tutela.modulos.cadastros.modelos.negocios.Pessoa;
  *
  * @author augusto
  */
-public class CriancaNovoVisao extends javax.swing.JDialog {
+public class CriancaFormulario extends javax.swing.JDialog {
 
     /**
      * Creates new form CriancaNovo
      */
-    public CriancaNovoVisao(java.awt.Frame parent, boolean modal) {
+    public CriancaFormulario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -28,8 +28,8 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         possuiNecessidadeNao.setEnabled(false);
         necessidadeEspecial.setEditable(false);
         
-        botaoSalvar.setIcon(new ImageIcon(CriancaNovoVisao.this.getClass().getResource("/tutela/publico/imagens/salvar.png")));
-        botaoCancelar.setIcon(new ImageIcon(CriancaNovoVisao.this.getClass().getResource("/tutela/publico/imagens/cancelar.png")));
+        botaoSalvar.setIcon(new ImageIcon(CriancaFormulario.this.getClass().getResource("/tutela/publico/imagens/salvar.png")));
+        botaoCancelar.setIcon(new ImageIcon(CriancaFormulario.this.getClass().getResource("/tutela/publico/imagens/cancelar.png")));
     }
 
     /**
@@ -730,9 +730,9 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
         crianca.setOutroResponsavel(nomeResponsavel.getText());
         crianca.setCertidaoNascimento(certidaoNascimento.getText());
         
-        CriancaDao criancaDao = new CriancaDao();
+        CriancaDAO criancaDao = new CriancaDAO();
         
-        if ( criancaDao.salvar(crianca) ) 
+        if ( crianca.validaDadosObrigatorios() && criancaDao.salvar(crianca) ) 
         {
             JOptionPane.showMessageDialog(null, "Registro efetuado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             this.resetaCampos();
@@ -814,20 +814,20 @@ public class CriancaNovoVisao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaFormulario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaFormulario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaFormulario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriancaNovoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CriancaFormulario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CriancaNovoVisao dialog = new CriancaNovoVisao(new javax.swing.JFrame(), true);
+                CriancaFormulario dialog = new CriancaFormulario(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -143,6 +143,11 @@ public class Crianca extends Pessoa
             camposValidos = false;
         }
         
+        if ( !camposValidos )
+        {
+            JOptionPane.showMessageDialog(null, "Preencha corretamente os campos obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
         return camposValidos;
     }
     

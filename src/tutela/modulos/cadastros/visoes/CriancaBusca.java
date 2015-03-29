@@ -8,34 +8,34 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
-import tutela.modulos.cadastros.modelos.daos.CriancaDao;
+import tutela.modulos.cadastros.modelos.daos.CriancaDAO;
 import tutela.modulos.cadastros.modelos.negocios.Crianca;
 
 /**
  *
  * @author augusto
  */
-public class CriancaVisao extends javax.swing.JInternalFrame {
+public class CriancaBusca extends javax.swing.JInternalFrame {
     private Frame Frame;
 
     /**
      * Creates new form CriancaVisao
      */
-    public CriancaVisao() {
+    public CriancaBusca() {
         initComponents();
         
-        botaoNovo.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/novo.png")));
-        botaoEditar.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/editar.png")));
+        botaoNovo.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/novo.png")));
+        botaoEditar.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/editar.png")));
         botaoEditar.setEnabled(false);
-        botaoExcluir.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/excluir.png")));
+        botaoExcluir.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/excluir.png")));
         botaoExcluir.setEnabled(false);
-        botaoBuscar.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/buscar.png")));
+        botaoBuscar.setIcon(new ImageIcon(CriancaBusca.this.getClass().getResource("/tutela/publico/imagens/buscar.png")));
     
         tabelaCrianca.setRowHeight(20);
         tabelaCrianca.setPreferredSize(new Dimension(10000, 500));
         
         Crianca crianca = new Crianca();
-        CriancaDao criancaDao = new CriancaDao();
+        CriancaDAO criancaDao = new CriancaDAO();
         ResultSet resultSet;
         
         resultSet = criancaDao.listar();
@@ -105,11 +105,11 @@ public class CriancaVisao extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Origem étnica", "Data de nascimento", "Sexo", "Cidade", "Telefone", "Possui necessidade especial", "Nome mae", "Nome pai", "Outro responsável"
+                "Código", "Nome", "Estado civil", "Origem étnica", "Data de nascimento", "Sexo", "Cidade", "Telefone", "Possui necessidade especial", "Nome mae", "Nome pai", "Outro responsável"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -189,7 +189,7 @@ public class CriancaVisao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoActionPerformed
-        CriancaNovoVisao novo = new CriancaNovoVisao(Frame, true);
+        CriancaFormulario novo = new CriancaFormulario(Frame, true);
         novo.setLocationRelativeTo(null);  // centraliza a tela
         novo.setVisible(true);
     }//GEN-LAST:event_botaoNovoActionPerformed

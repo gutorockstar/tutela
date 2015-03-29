@@ -14,7 +14,7 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import tutela.modulos.cadastros.visoes.CriancaVisao;
+import tutela.modulos.cadastros.visoes.CriancaBusca;
 
 /**
  *
@@ -158,7 +158,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_menuOcorrenciasActionPerformed
 
     private void menuCriancasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCriancasActionPerformed
-        CriancaVisao criancaVisao = new CriancaVisao();
+        CriancaBusca criancaVisao = new CriancaBusca();
         panelConteudo.add(criancaVisao);
         try 
         {

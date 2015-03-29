@@ -6,7 +6,10 @@ package tutela.modulos.cadastros.visoes;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
+import tutela.modulos.cadastros.modelos.daos.CriancaDao;
+import tutela.modulos.cadastros.modelos.negocios.Crianca;
 
 /**
  *
@@ -24,14 +27,19 @@ public class CriancaVisao extends javax.swing.JInternalFrame {
         botaoNovo.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/novo.png")));
         botaoEditar.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/editar.png")));
         botaoEditar.setEnabled(false);
-        
         botaoExcluir.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/excluir.png")));
         botaoExcluir.setEnabled(false);
-        
         botaoBuscar.setIcon(new ImageIcon(CriancaVisao.this.getClass().getResource("/tutela/publico/imagens/buscar.png")));
     
         tabelaCrianca.setRowHeight(20);
         tabelaCrianca.setPreferredSize(new Dimension(10000, 500));
+        
+        Crianca crianca = new Crianca();
+        CriancaDao criancaDao = new CriancaDao();
+        ResultSet resultSet;
+        
+        resultSet = criancaDao.listar();
+        crianca.populaRegistrosNaTabela(tabelaCrianca, resultSet);
     }
 
     /**
@@ -91,10 +99,10 @@ public class CriancaVisao extends javax.swing.JInternalFrame {
         painelConteudo.setBackground(java.awt.SystemColor.controlLtHighlight);
         painelConteudo.setBorder(null);
 
-        tabelaCrianca.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        tabelaCrianca.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         tabelaCrianca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome", "Origem étnica", "Data de nascimento", "Sexo", "Cidade", "Telefone", "Possui necessidade especial", "Nome mae", "Nome pai", "Outro responsável"

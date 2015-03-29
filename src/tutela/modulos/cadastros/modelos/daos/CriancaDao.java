@@ -4,10 +4,13 @@
  */
 package tutela.modulos.cadastros.modelos.daos;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import tutela.modulos.principal.modelos.daos.ConexaoBD;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import tutela.modulos.cadastros.modelos.negocios.Crianca;
 
 /**
@@ -81,7 +84,8 @@ public class CriancaDao extends ConexaoBD
             }
             else
             {
-                throw new Exception("Preencha corretamente os campos obrigatórios!");
+                JOptionPane.showMessageDialog(null, "Preencha corretamente os campos obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
         } 
         catch (Exception e) 
@@ -96,17 +100,13 @@ public class CriancaDao extends ConexaoBD
      * da base de dados.
      * 
      * @param filtro
-     * @return ArrayList
+     * @return ResultSet
      */
-    public ArrayList listar(String filtro)
-    {
-        ArrayList criancas = null;
-        
+    public ResultSet listar()
+    {        
         try
         {
-            // REMOVER O PARÂMETRO DE FILTRO, IREI LISTAR SEMPRE TODOS OS REGISTROS, E FAZER A BUSCA DIRETAMENTE NA JTABLE.
-            
-            String sql = "SELECT idPessoa," +
+            String sql = "SELECT idpessoa," +
                                 "nome," +
                                 "estadoCivil," +
                                 "dataNascimento," +
@@ -128,15 +128,19 @@ public class CriancaDao extends ConexaoBD
                                 "nomeMae," +
                                 "nomePai," +
                                 "outroResponsavel," +
-                                "certidaoNascimento" +
-                           "FROM crianca ";
+                                "certidaoNascimento " +
+                           "FROM crianca";
+            
+            Statement st = super.getConnection().createStatement();
+            ResultSet resultSet = st.executeQuery(sql);
+            
+            return resultSet;
         }
         catch (Exception e)
         {
             JOptionPane.showMessageDialog(null, "Erro ao listar registros: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
-        
-        return criancas;
     }
     
     /**

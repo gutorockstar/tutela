@@ -4,6 +4,12 @@
  */
 package tutela.modulos.cadastros.modelos.negocios;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author augusto
@@ -138,5 +144,37 @@ public class Crianca extends Pessoa
         }
         
         return camposValidos;
+    }
+    
+    /**
+     * Popula os registros obtidos na tabela.
+     * Conforme colunas que a tabela aceite.
+     * 
+     * @param tabel
+     * @param resultSet 
+     */
+    public void populaRegistrosNaTabela(JTable tabela, ResultSet resultSet)
+    {
+        try
+        {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columns = metaData.getColumnCount();
+
+            while ( resultSet.next() )
+            {  
+                Object[] row = new Object[columns];
+
+                for ( int i = 1; i <= columns; i++ )
+                {  
+                    row[i - 1] = resultSet.getObject(i);
+                }
+
+                ((DefaultTableModel) tabela.getModel()).insertRow(resultSet.getRow() -1,row);
+            }
+        }
+        catch ( Exception e )
+        {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao popular a tabela: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

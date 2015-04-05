@@ -262,7 +262,10 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         
         if ( selected != -1 )
         {
-            Crianca crianca = new Crianca(selected);
+            Object registro = tabelaCrianca.getValueAt(selected, 0);
+            int codCrianca = Integer.parseInt(registro.toString());
+            
+            Crianca crianca = new Crianca(codCrianca);
             
             criancaFormulario = new CriancaFormulario(this, true);
             criancaFormulario.populaForumlario(crianca);

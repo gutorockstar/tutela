@@ -238,7 +238,7 @@ public final class Crianca extends Pessoa
             this.setOrigemEtnica(resultSet.getString("origemetnica"));
             this.setCidade(resultSet.getString("cidade"));
             this.setTelefoneCelular(resultSet.getString("telefonecelular"));
-            this.setPossuiNecessidadeEspecial(resultSet.getBoolean("possuinecessidadeespecial"));
+            this.setPossuiNecessidadeEspecial((resultSet.getString("possuinecessidadeespecial").equals("Sim")) ? true : false);
             this.setNomeMae(resultSet.getString("nomemae"));
             this.setNomePai(resultSet.getString("nomepai"));
             this.setOutroResponsavel(resultSet.getString("outroresponsavel"));

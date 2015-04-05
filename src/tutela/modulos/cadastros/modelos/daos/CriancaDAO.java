@@ -19,7 +19,25 @@ import tutela.modulos.cadastros.modelos.negocios.Crianca;
  */
 public class CriancaDAO extends ConexaoBD
 {    
-    public int codigoInserido;
+    public int codigoSalvo;
+    
+    /**
+     * Registra ou atualiza uma nova criança na base de dados.
+     * 
+     * @param crianca
+     * @return boolean
+     */
+    public boolean salvar(Crianca crianca) 
+    {
+        if ( crianca.getIdPessoa() > 0 )
+        {
+            return this.atualizar(crianca);
+        }
+        else
+        {
+            return this.inserir(crianca);
+        }
+    }
     
     /**
      * Registra uma nova criança na base de dados.
@@ -27,7 +45,7 @@ public class CriancaDAO extends ConexaoBD
      * @param crianca
      * @return boolean
      */
-    public boolean salvar(Crianca crianca) 
+    private boolean inserir(Crianca crianca)
     {
         try 
         {
@@ -84,13 +102,64 @@ public class CriancaDAO extends ConexaoBD
             resultSet = st.executeQuery(sql);
             resultSet.next();
             
-            codigoInserido = resultSet.getInt(1);
+            codigoSalvo = resultSet.getInt(1);
 
             return true;
         } 
         catch (Exception e) 
         {
             JOptionPane.showMessageDialog(null, "Erro ao salvar registro: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+    
+    /**
+     * Atualiza o registro de uma criança na base de dados.
+     * 
+     * @param crianca
+     * @return boolean
+     */
+    private boolean atualizar(Crianca crianca)
+    {
+        try 
+        {
+            String sql = "UPDATE crianca " +
+                            "SET nome = '" + crianca.getNome() + "'," +
+                                "estadoCivil = '" + crianca.getEstadoCivil() + "'," +
+                                "dataNascimento = '" + crianca.getDataNascimento() + "'," +
+                                "sexo = '" + crianca.getSexo() + "'," +
+                                "origemEtnica = '" + crianca.getOrigemEtnica() + "'," +
+                                "estado = '" + crianca.getEstado() + "'," +
+                                "cidade = '" + crianca.getCidade() + "'," +
+                                "bairro = '" + crianca.getBairro() + "'," +
+                                "rua = '" + crianca.getRua() + "'," +
+                                "numero = '" + crianca.getNumero() + "'," +
+                                "complemento = '" + crianca.getComplemento() + "'," +
+                                "rg = '" + crianca.getRg() + "'," +
+                                "cpf = '" + crianca.getCpf() + "'," +
+                                "telefoneResidencial = '" + crianca.getTelefoneResidencial() + "'," +
+                                "telefoneCelular = '" + crianca.getTelefoneCelular() + "'," +
+                                "email = '" + crianca.getEmail() + "'," +
+                                "possuiNecessidadeEspecial = '" + crianca.isPossuiNecessidadeEspecial() + "'," +
+                                "necessidadeEspecial = '" + crianca.getNecessidadeEspecial() + "'," +
+                                "nomeMae = '" + crianca.getNomeMae() + "'," +
+                                "nomePai = '" + crianca.getNomePai() + "'," +
+                                "outroResponsavel = '" + crianca.getOutroResponsavel() + "'," +
+                                "certidaoNascimento = '" + crianca.getCertidaoNascimento() + "' " +
+                          "WHERE idPessoa = " + crianca.getIdPessoa();
+
+            System.out.println(sql);
+            
+            Statement st = super.getConnection().createStatement();
+            st.executeUpdate(sql);
+            
+            codigoSalvo = crianca.getIdPessoa();
+
+            return true;
+        } 
+        catch (Exception e) 
+        {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar registro: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -143,17 +212,6 @@ public class CriancaDAO extends ConexaoBD
             JOptionPane.showMessageDialog(null, "Erro ao listar registros: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-    }
-    
-    /**
-     * Atualiza registro de uma criança na base de dados.
-     * 
-     * @param crianca
-     * @return boolean
-     */
-    public boolean atualizar(Crianca crianca)
-    {
-        return false;
     }
     
     /**

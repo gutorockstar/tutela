@@ -17,6 +17,7 @@ import tutela.modulos.cadastros.modelos.negocios.Pessoa;
 public class CriancaFormulario extends javax.swing.JDialog {
 
     public static CriancaBusca criancaBusca;
+    public static int idCrianca = 0;
     
     /**
      * Creates new form CriancaNovo
@@ -40,8 +41,47 @@ public class CriancaFormulario extends javax.swing.JDialog {
      */
     public void populaForumlario(Crianca crianca)
     {
+        idCrianca = crianca.getIdPessoa();
         nome.setText(crianca.getNome());
-        //Continuar
+        estadoCivil.setSelectedItem(crianca.getEstadoCivil());
+        dataNascimento.setText(crianca.getDataNascimento());
+        
+        if ( crianca.getSexo().substring(0, 1).equals(Pessoa.sexoM) )
+        {
+            this.sexoMActionPerformed(null);
+        }
+        else
+        {
+            this.sexoFActionPerformed(null);
+        }
+        
+        origemEtnica.setSelectedItem(crianca.getOrigemEtnica());
+        
+        if ( crianca.isPossuiNecessidadeEspecial() )
+        {
+            this.possuiNecessidadeSimActionPerformed(null);
+        }
+        else
+        {
+            this.possuiNecessidadeNaoActionPerformed(null);
+        }
+        
+        necessidadeEspecial.setText(crianca.getNecessidadeEspecial());
+        nomeMae.setText(crianca.getNomeMae());
+        nomePai.setText(crianca.getNomePai());
+        nomeResponsavel.setText(crianca.getOutroResponsavel());
+        estado.setSelectedItem(crianca.getEstado());
+        cidade.setText(crianca.getCidade());
+        bairro.setText(crianca.getBairro());
+        rua.setText(crianca.getRua());
+        numero.setText(crianca.getNumero());
+        complemento.setText(crianca.getComplemento());
+        certidaoNascimento.setText(crianca.getCertidaoNascimento());
+        cpf.setText(crianca.getCpf());
+        rg.setText(crianca.getRg());
+        telefoneResidencial.setText(crianca.getTelefoneResidencial());
+        telefoneCelular.setText(crianca.getTelefoneCelular());
+        email.setText(crianca.getEmail());
     }
 
     /**
@@ -718,12 +758,14 @@ public class CriancaFormulario extends javax.swing.JDialog {
     private void possuiNecessidadeSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_possuiNecessidadeSimActionPerformed
         possuiNecessidadeNao.setSelected(false);
         possuiNecessidadeNao.setEnabled(true);
+        possuiNecessidadeSim.setSelected(true);
         possuiNecessidadeSim.setEnabled(false);
         necessidadeEspecial.setEditable(true);
     }//GEN-LAST:event_possuiNecessidadeSimActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         Crianca crianca = new Crianca();
+        crianca.setIdPessoa(idCrianca);
         crianca.setNome(nome.getText());
         crianca.setEstadoCivil(estadoCivil.getSelectedItem().toString());
         crianca.setDataNascimento(dataNascimento.getText());
@@ -752,7 +794,7 @@ public class CriancaFormulario extends javax.swing.JDialog {
         if ( crianca.validaDadosObrigatorios() && criancaDao.salvar(crianca) ) 
         {
             JOptionPane.showMessageDialog(null, "Registro efetuado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            criancaBusca.atualizarTabela(criancaDao.codigoInserido);
+            criancaBusca.atualizarTabela(criancaDao.codigoSalvo);
             this.setVisible(false);
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
@@ -760,6 +802,7 @@ public class CriancaFormulario extends javax.swing.JDialog {
     private void possuiNecessidadeNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_possuiNecessidadeNaoActionPerformed
         possuiNecessidadeSim.setSelected(false);
         possuiNecessidadeSim.setEnabled(true);
+        possuiNecessidadeNao.setSelected(true);
         possuiNecessidadeNao.setEnabled(false);
         necessidadeEspecial.setText(null);
         necessidadeEspecial.setEditable(false);
@@ -772,12 +815,14 @@ public class CriancaFormulario extends javax.swing.JDialog {
     private void sexoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMActionPerformed
         sexoF.setSelected(false);
         sexoF.setEnabled(true);
+        sexoM.setSelected(true);
         sexoM.setEnabled(false);
     }//GEN-LAST:event_sexoMActionPerformed
 
     private void sexoFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoFActionPerformed
         sexoM.setSelected(false);
         sexoM.setEnabled(true);
+        sexoF.setSelected(true);
         sexoF.setEnabled(false);
     }//GEN-LAST:event_sexoFActionPerformed
 

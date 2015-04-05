@@ -134,6 +134,11 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         botaoExcluir.setFocusable(false);
         botaoExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirActionPerformed(evt);
+            }
+        });
         jToolBar1.add(botaoExcluir);
 
         botaoAtualizar.setText(" Atualizar ");
@@ -277,6 +282,33 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um registro!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botaoEditarActionPerformed
+
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        int selected = tabelaCrianca.getSelectedRow();
+        
+        if ( selected != -1 )
+        {
+            int reply = JOptionPane.showConfirmDialog(null, "Você têm certeza que deseja excluir este registro?", "Atenção!", JOptionPane.YES_NO_OPTION);
+            
+            if ( reply == JOptionPane.YES_OPTION ) 
+            {
+                Object registro = tabelaCrianca.getValueAt(selected, 0);
+                int idPessoa = Integer.parseInt(registro.toString());
+                
+                CriancaDAO criancaDao = new CriancaDAO();
+                
+                if ( criancaDao.excluir(idPessoa) )
+                {
+                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+                    this.atualizarTabela(0);
+                }
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Selecione um registro!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoExcluirActionPerformed
 
     public final void atualizarTabela(int codigoRegistroASelecionar) {
 	Crianca crianca = new Crianca();

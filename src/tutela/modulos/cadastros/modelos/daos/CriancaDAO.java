@@ -147,8 +147,6 @@ public class CriancaDAO extends ConexaoBD
                                 "outroResponsavel = '" + crianca.getOutroResponsavel() + "'," +
                                 "certidaoNascimento = '" + crianca.getCertidaoNascimento() + "' " +
                           "WHERE idPessoa = " + crianca.getIdPessoa();
-
-            System.out.println(sql);
             
             Statement st = super.getConnection().createStatement();
             st.executeUpdate(sql);
@@ -222,6 +220,20 @@ public class CriancaDAO extends ConexaoBD
      */
     public boolean excluir(int idPessoa)
     {
-        return false;   
+        try
+        {
+            String sql = "DELETE FROM crianca " +
+                               "WHERE idpessoa = " + idPessoa;
+            
+            Statement st = super.getConnection().createStatement();
+            st.execute(sql);
+            
+            return true;
+        }
+        catch ( Exception e )
+        {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir registro: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }    
 }

@@ -4,8 +4,13 @@
  */
 package tutela.modulos.cadastros.visoes;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tutela.modulos.cadastros.modelos.daos.CriancaDAO;
 import tutela.modulos.cadastros.modelos.negocios.Crianca;
 import tutela.modulos.cadastros.modelos.negocios.Pessoa;
@@ -33,6 +38,18 @@ public class CriancaFormulario extends javax.swing.JDialog {
         necessidadeEspecial.setEditable(false);
         botaoSalvar.setIcon(new ImageIcon(CriancaFormulario.this.getClass().getResource("/tutela/publico/imagens/salvar.png")));
         botaoCancelar.setIcon(new ImageIcon(CriancaFormulario.this.getClass().getResource("/tutela/publico/imagens/cancelar.png")));
+        
+        try 
+        {
+            dataNascimento.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
+            cpf.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("###.###.###-##")));
+            telefoneResidencial.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("(##) - #########")));
+            telefoneCelular.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("(##) - #########")));
+        } 
+        catch (ParseException ex) 
+        {
+            Logger.getLogger(CriancaFormulario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -102,7 +119,6 @@ public class CriancaFormulario extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         estadoCivil = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        dataNascimento = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         sexoM = new javax.swing.JRadioButton();
         sexoF = new javax.swing.JRadioButton();
@@ -127,6 +143,7 @@ public class CriancaFormulario extends javax.swing.JDialog {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        dataNascimento = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -150,24 +167,24 @@ public class CriancaFormulario extends javax.swing.JDialog {
         jPanel10 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         certidaoNascimento = new javax.swing.JTextField();
-        cpf = new javax.swing.JTextField();
         rg = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        cpf = new javax.swing.JFormattedTextField();
         jPanel7 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        telefoneResidencial = new javax.swing.JTextField();
-        telefoneCelular = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        telefoneResidencial = new javax.swing.JFormattedTextField();
+        telefoneCelular = new javax.swing.JFormattedTextField();
         jToolBar1 = new javax.swing.JToolBar();
         botaoSalvar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
@@ -296,6 +313,8 @@ public class CriancaFormulario extends javax.swing.JDialog {
         jLabel28.setForeground(java.awt.Color.gray);
         jLabel28.setText("Informação: Campo com (*), é obrigatório o seu preenchimento.");
 
+        dataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -330,11 +349,11 @@ public class CriancaFormulario extends javax.swing.JDialog {
                                     .addComponent(nomeResponsavel, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nomeMae, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(necessidadeEspecial, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dataNascimento, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(estadoCivil, javax.swing.GroupLayout.Alignment.LEADING, 0, 466, Short.MAX_VALUE)
                                     .addComponent(origemEtnica, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(nomePai, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nome))
+                                    .addComponent(nome)
+                                    .addComponent(dataNascimento))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,9 +384,9 @@ public class CriancaFormulario extends javax.swing.JDialog {
                     .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel24))
+                    .addComponent(jLabel24)
+                    .addComponent(dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sexoM)
@@ -581,8 +600,8 @@ public class CriancaFormulario extends javax.swing.JDialog {
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rg)
                             .addComponent(certidaoNascimento)
+                            .addComponent(rg)
                             .addComponent(cpf))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -602,8 +621,8 @@ public class CriancaFormulario extends javax.swing.JDialog {
                     .addComponent(jLabel35))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                    .addComponent(jLabel17)
+                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -660,10 +679,10 @@ public class CriancaFormulario extends javax.swing.JDialog {
                             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(telefoneResidencial)
-                            .addComponent(telefoneCelular)
-                            .addComponent(email))
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(email, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(telefoneResidencial, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(telefoneCelular))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
@@ -681,9 +700,9 @@ public class CriancaFormulario extends javax.swing.JDialog {
                     .addComponent(telefoneResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefoneCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20)
-                    .addComponent(jLabel37))
+                    .addComponent(jLabel37)
+                    .addComponent(telefoneCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -883,8 +902,8 @@ public class CriancaFormulario extends javax.swing.JDialog {
     private javax.swing.JTextField certidaoNascimento;
     private javax.swing.JTextField cidade;
     private javax.swing.JTextField complemento;
-    private javax.swing.JTextField cpf;
-    private javax.swing.JTextField dataNascimento;
+    private javax.swing.JFormattedTextField cpf;
+    private javax.swing.JFormattedTextField dataNascimento;
     private javax.swing.JTextField email;
     private javax.swing.JComboBox estado;
     private javax.swing.JComboBox estadoCivil;
@@ -952,7 +971,7 @@ public class CriancaFormulario extends javax.swing.JDialog {
     private javax.swing.JTextField rua;
     private javax.swing.JRadioButton sexoF;
     private javax.swing.JRadioButton sexoM;
-    private javax.swing.JTextField telefoneCelular;
-    private javax.swing.JTextField telefoneResidencial;
+    private javax.swing.JFormattedTextField telefoneCelular;
+    private javax.swing.JFormattedTextField telefoneResidencial;
     // End of variables declaration//GEN-END:variables
 }

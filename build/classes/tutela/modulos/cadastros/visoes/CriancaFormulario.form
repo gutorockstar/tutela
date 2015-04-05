@@ -111,11 +111,11 @@
                                           <Component id="nomeResponsavel" alignment="0" max="32767" attributes="0"/>
                                           <Component id="nomeMae" alignment="0" max="32767" attributes="0"/>
                                           <Component id="necessidadeEspecial" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="dataNascimento" alignment="0" max="32767" attributes="0"/>
                                           <Component id="estadoCivil" alignment="0" pref="466" max="32767" attributes="0"/>
                                           <Component id="origemEtnica" alignment="0" max="32767" attributes="0"/>
                                           <Component id="nomePai" alignment="0" max="32767" attributes="0"/>
                                           <Component id="nome" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="dataNascimento" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -158,9 +158,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="dataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -259,8 +259,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Estado civil:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="dataNascimento">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -475,6 +473,13 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="dataNascimento">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format subtype="2" type="1"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -773,9 +778,9 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="certidaoNascimento" max="32767" attributes="0"/>
                                       <Component id="rg" max="32767" attributes="0"/>
-                                      <Component id="certidaoNascimento" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="cpf" max="32767" attributes="0"/>
+                                      <Component id="cpf" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel35" min="-2" pref="16" max="-2" attributes="0"/>
@@ -801,8 +806,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cpf" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cpf" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -828,8 +833,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="certidaoNascimento">
-                </Component>
-                <Component class="javax.swing.JTextField" name="cpf">
                 </Component>
                 <Component class="javax.swing.JTextField" name="rg">
                 </Component>
@@ -872,6 +875,8 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator3">
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="cpf">
                 </Component>
               </SubComponents>
             </Container>
@@ -919,10 +924,10 @@
                                       <Component id="jLabel21" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="telefoneResidencial" max="32767" attributes="0"/>
-                                      <Component id="telefoneCelular" max="32767" attributes="0"/>
-                                      <Component id="email" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="email" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="telefoneResidencial" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="telefoneCelular" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel37" min="-2" pref="16" max="-2" attributes="0"/>
@@ -947,9 +952,9 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="telefoneCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="telefoneCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -973,10 +978,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Telefone residencial:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="telefoneResidencial">
-                </Component>
-                <Component class="javax.swing.JTextField" name="telefoneCelular">
                 </Component>
                 <Component class="javax.swing.JTextField" name="email">
                 </Component>
@@ -1019,6 +1020,10 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator4">
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="telefoneResidencial">
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="telefoneCelular">
                 </Component>
               </SubComponents>
             </Container>

@@ -1,6 +1,30 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS pessoa (
+CREATE TABLE login (
+    idLogin SERIAL PRIMARY KEY NOT NULL,
+    login VARCHAR(45) NOT NULL,
+    senha VARCHAR(45) NOT NULL,
+    idPessoa INT REFERENCES pessoa(idPessoa)
+);
+CREATE INDEX idx_login_idlogin ON login(idLogin);
+
+CREATE OR REPLACE FUNCTION ajusta_senha_para_md5()
+RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    NEW.senha := MD5(NEW.senha);
+
+    RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+                CREATE TRIGGER trg_ajusta_senha_para_md5 
+    BEFORE INSERT OR UPDATE ON login 
+FOR EACH ROW EXECUTE PROCEDURE ajusta_senha_para_md5();
+--
+
+CREATE TABLE pessoa (
     idPessoa SERIAL PRIMARY KEY NOT NULL,
     nome VARCHAR(45) NOT NULL,
     estadoCivil VARCHAR(45) NOT NULL,
@@ -19,10 +43,10 @@ CREATE TABLE IF NOT EXISTS pessoa (
     telefoneCelular VARCHAR(45) NOT NULL,
     email VARCHAR(45)
 );
+CREATE INDEX idx_pessoa_idPessoa ON pessoa(idPessoa);
+--
 
-CREATE INDEX IF NOT EXISTS idx_pessoa_idPessoa ON pessoa(idPessoa);
-
-CREATE TABLE IF NOT EXISTS crianca (
+CREATE TABLE crianca (
     possuiNecessidadeEspecial BOOLEAN NOT NULL DEFAULT FALSE,
     necessidadeEspecial VARCHAR(45),
     nomeMae VARCHAR(45),

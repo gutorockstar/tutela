@@ -15,8 +15,8 @@ public class Main {
      */
     public static void main(String[] args) 
     {
-        Sistema sistema = new Sistema();
-        sistema.setExtendedState(sistema.MAXIMIZED_BOTH);
-        sistema.setVisible(true);
+        Login login = new Login();
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
     }
 }

@@ -169,7 +169,7 @@ public class CriancaDAO extends ConexaoBD
      * @param filtro
      * @return ResultSet
      */
-    public ResultSet listar(int idPessoa)
+    public ResultSet listar(int idPessoa, String busca)
     {        
         try
         {
@@ -197,8 +197,33 @@ public class CriancaDAO extends ConexaoBD
                                 "necessidadeEspecial," +
                                 "certidaoNascimento " +
                            "FROM crianca " +
-                          "WHERE (CASE " + idPessoa + "WHEN 0 THEN TRUE ELSE (idPessoa = " + idPessoa + ") END) " +
-                       "ORDER BY nome";
+                          "WHERE (CASE " + idPessoa + " WHEN 0 THEN TRUE ELSE (idPessoa = " + idPessoa + ") END) " +
+                            "AND (CASE WHEN '" + busca + "' = 'null' THEN TRUE ELSE " +
+                                      "((idpessoa::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(nome::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(estadoCivil::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(dataNascimento::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(sexo::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(origemEtnica::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(cidade::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(telefoneCelular::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(possuiNecessidadeEspecial::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(nomeMae::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(nomePai::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(outroResponsavel::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(estado::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(bairro::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(rua::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(numero::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(complemento::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(rg::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(cpf::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(telefoneResidencial::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(email::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(necessidadeEspecial::TEXT ILIKE '%" + busca + "%') OR " +
+                                       "(certidaoNascimento::TEXT ILIKE '%" + busca + "%')) " +
+                                 "END) " +
+                       "ORDER BY idpessoa, nome";
             
             Statement st = super.getConnection().createStatement();
             ResultSet resultSet = st.executeQuery(sql);

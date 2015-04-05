@@ -227,7 +227,7 @@ public final class Crianca extends Pessoa
         {
             CriancaDAO criancaDao = new CriancaDAO();
             ResultSet resultSet;
-            resultSet = criancaDao.listar(idPessoa);
+            resultSet = criancaDao.listar(idPessoa, null);
             resultSet.next();
             
             this.setIdPessoa(idPessoa);

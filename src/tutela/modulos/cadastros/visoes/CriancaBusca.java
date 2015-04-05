@@ -5,6 +5,7 @@
 package tutela.modulos.cadastros.visoes;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -95,7 +96,7 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         painelConteudo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCrianca = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        busca = new javax.swing.JTextField();
         botaoBuscar = new javax.swing.JButton();
 
         setBorder(null);
@@ -183,7 +184,18 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         tabelaCrianca.getColumnModel().getColumn(0).setPreferredWidth(30);
         tabelaCrianca.getColumnModel().getColumn(1).setPreferredWidth(200);
 
+        busca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                buscaKeyPressed(evt);
+            }
+        });
+
         botaoBuscar.setText("Procurar");
+        botaoBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelConteudoLayout = new javax.swing.GroupLayout(painelConteudo);
         painelConteudo.setLayout(painelConteudoLayout);
@@ -194,7 +206,7 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
                 .addGroup(painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
                     .addGroup(painelConteudoLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -206,7 +218,7 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botaoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(busca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -310,11 +322,27 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
+    private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
+        String buscar = this.busca.getText();
+        Crianca crianca = new Crianca();
+        CriancaDAO criancaDao = new CriancaDAO();
+        ResultSet resultSet;
+        resultSet = criancaDao.listar(0, buscar);
+        crianca.populaRegistrosNaTabela(tabelaCrianca, resultSet, 0);
+    }//GEN-LAST:event_botaoBuscarActionPerformed
+
+    private void buscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscaKeyPressed
+        if ( evt.getKeyCode() == KeyEvent.VK_ENTER ) 
+        {
+            this.botaoBuscarActionPerformed(null);
+        }
+    }//GEN-LAST:event_buscaKeyPressed
+
     public final void atualizarTabela(int codigoRegistroASelecionar) {
 	Crianca crianca = new Crianca();
         CriancaDAO criancaDao = new CriancaDAO();
         ResultSet resultSet;
-        resultSet = criancaDao.listar(0);
+        resultSet = criancaDao.listar(0, null);
         crianca.populaRegistrosNaTabela(tabelaCrianca, resultSet, codigoRegistroASelecionar);
     }
 
@@ -324,9 +352,9 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
     private javax.swing.JButton botaoEditar;
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoNovo;
+    private javax.swing.JTextField busca;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel painelAcoes;
     private javax.swing.JPanel painelConteudo;

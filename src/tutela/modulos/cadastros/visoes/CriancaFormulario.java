@@ -812,7 +812,8 @@ public class CriancaFormulario extends javax.swing.JDialog {
         
         if ( crianca.validaDadosObrigatorios() && criancaDao.salvar(crianca) ) 
         {
-            JOptionPane.showMessageDialog(null, "Registro efetuado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            String mensagem = (idCrianca > 0) ? "Registro atualizado com sucesso!" : "Registro efetuado com sucesso!";
+            JOptionPane.showMessageDialog(null, mensagem, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             criancaBusca.atualizarTabela(criancaDao.codigoSalvo);
             this.setVisible(false);
         }

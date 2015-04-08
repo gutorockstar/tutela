@@ -311,8 +311,8 @@ public class CriancaBusca extends javax.swing.JInternalFrame {
                 
                 if ( criancaDao.excluir(idPessoa) )
                 {
-                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
                     this.atualizarTabela(0);
+                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
                 }
             }
         }

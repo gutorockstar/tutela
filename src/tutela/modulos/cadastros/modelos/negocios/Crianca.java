@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import tutela.modulos.cadastros.modelos.daos.CriancaDAO;
+import tutela.modulos.principal.modelos.negocio.Validacao;
 
 /**
  *
@@ -100,62 +101,82 @@ public final class Crianca extends Pessoa
     public boolean validaDadosObrigatorios() 
     {
         boolean camposValidos = true;
+        String erro = "";
         
         if ( this.getNome().length() == 0 )
         {
-            camposValidos = false;
-        }
-        else if ( this.getEstadoCivil().length() == 0 || this.getEstadoCivil().equals(" "))
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getDataNascimento().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getSexo().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getOrigemEtnica().length() == 0 || this.getOrigemEtnica().equals(" ") )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getEstado().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getCidade().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getBairro().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getRua().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getNumero().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getTelefoneCelular().length() == 0 )
-        {
-            camposValidos = false;
-        }        
-        else if ( this.getCertidaoNascimento().length() == 0 )
-        {
-            camposValidos = false;
+            erro += "\nCampo 'Nome' é requerido!";
         }
         
-        if ( !camposValidos )
+        if ( this.getEstadoCivil().length() == 0 || this.getEstadoCivil().equals(" "))
         {
-            JOptionPane.showMessageDialog(null, "Preencha corretamente os campos obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
+            erro += "\nCampo 'Estado civil' é requerido!";
+        }        
+        
+        if ( this.getDataNascimento().length() == 0 )
+        {
+            erro += "\nCampo 'Data de nascimento' é requerido!";
+        }        
+        
+        if ( this.getSexo().length() == 0 )
+        {
+            erro += "\nCampo 'Estado civil' é requerido!";
+        }        
+        
+        if ( this.getOrigemEtnica().length() == 0 || this.getOrigemEtnica().equals(" ") )
+        {
+            erro += "\nCampo 'Origem étnica' é requerido!";
+        }        
+        
+        if ( this.getEstado().length() == 0 )
+        {
+            erro += "\nCampo 'Estado' é requerido!";
+        }        
+        
+        if ( this.getCidade().length() == 0 )
+        {
+            erro += "\nCampo 'Cidade' é requerido!";
+        }        
+        
+        if ( this.getBairro().length() == 0 )
+        {
+            erro += "\nCampo 'Bairro' é requerido!";
+        }        
+        
+        if ( this.getRua().length() == 0 )
+        {
+            erro += "\nCampo 'Rua' é requerido!";
+        }        
+        
+        if ( this.getNumero().length() == 0 )
+        {
+            erro += "\nCampo 'Numero' é requerido!";
+        }        
+        
+        if ( this.getTelefoneCelular().length() == 0 )
+        {
+            erro += "\nCampo 'Telefone celular' é requerido!";
+        }        
+        
+        if ( this.getCertidaoNascimento().length() == 0 )
+        {
+            erro += "\nCampo 'Certidão de nascimento' é requerido!";
         }
         
-        return camposValidos;
+        if ( this.getCpf().length() > 0 )
+        {
+            if ( !Validacao.validarCPF(this.getCpf()) )
+            {
+                //erro += "\nRegistro de 'CPF' é inválido!";
+            }
+        }
+        
+        if ( erro.length() > 0 )
+        {
+            JOptionPane.showMessageDialog(null, "Preencha corretamente os campos!" + erro, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return !(erro.length() > 0);
     }
     
     /**

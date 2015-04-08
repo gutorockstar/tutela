@@ -163,7 +163,7 @@ public final class Crianca extends Pessoa
             erro += "\nCampo 'Certidão de nascimento' é requerido!";
         }
         
-        if ( this.getCpf().length() > 0 )
+        if ( this.getCpf().replace(".", "").replace("-", "").length() > 0 )
         {
             if ( !Validacao.validarCPF(this.getCpf()) )
             {

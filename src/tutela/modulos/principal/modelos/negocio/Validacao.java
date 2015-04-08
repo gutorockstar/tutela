@@ -28,9 +28,17 @@ public class Validacao {
     }
 
     public static boolean validarCPF(String cpf) {
-        if ((cpf == null) || (cpf.length() != 11)) {
+        if (cpf == null) {
             return false;
         }
+        
+        cpf = cpf.replace(".", "").replace("-", "");
+        
+        if ( cpf.trim().length() != 11 || cpf.trim().isEmpty() )
+        {
+            return false;
+        }
+        
         Integer digito1 = calcularDigito(cpf.substring(0, 9), pesoCPF);
         Integer digito2 = calcularDigito(cpf.substring(0, 9) + digito1, pesoCPF);
         return cpf.equals(cpf.substring(0, 9) + digito1.toString() + digito2.toString());
